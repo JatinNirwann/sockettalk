@@ -1,6 +1,7 @@
 
 import socket
 import threading
+import time
 
 #declaring constats
 
@@ -44,8 +45,11 @@ def handle_clients(client_socket,client_address):
 
 def server_message():
     while True:
-        message = input("Type Here: ")
-        broadcast(f"Server: {message}")
+        if clients:
+            message = input("Type Here: ")
+            broadcast(f"Server: {message}")
+        else:
+            time.sleep(2)
 
 server_thread = threading.Thread(target=server_message)
 server_thread.daemon = True

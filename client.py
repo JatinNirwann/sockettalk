@@ -27,15 +27,18 @@ def receive():
             client_socket.close()
             break
 
+
 def send():
     while True:
-            message =input("Type Below : \n")
+        try:
+            message = input("Type Below: \n") 
             client_socket.send(message.encode(encoder))
+        except Exception as e:
+            print(f"Error while sending message: {e}")
+            client_socket.close()
+            break
 
 def main():
-
-
-
     receive_thread = threading.Thread(target=receive)
     receive_thread.start()
     send_thread = threading.Thread(target=send)
