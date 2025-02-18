@@ -1,4 +1,4 @@
-# Chat Server & Client
+# Chat Server & Client 
 
 A simple multi-client chat application where clients can send messages to each other through a central server. The server handles multiple clients and ensures messages are broadcasted to all connected users, excluding the sender.
 
