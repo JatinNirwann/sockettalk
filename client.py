@@ -1,14 +1,19 @@
 
 import socket
 import threading
+import time
 
 #declaring some constants
 
 encoder = "ascii"
 bytesize = 1024
 
-server_ip = input("Enter the IP of server you wish to connect to : ")
-server_port = input("Enter server port number : ")
+#static server ip and ports , only uncomment these when you know what you doing
+server_ip = socket.gethostbyname(socket.gethostname()) 
+server_port = 9090
+
+# server_ip = input("Enter the IP of server you wish to connect to : ")
+# server_port = input("Enter server port number : ")
 displayname = input("Enter your Display name : ")
 
 client_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -21,9 +26,9 @@ def receive():
             if message == "NICKNAME":
                 client_socket.send(displayname.encode(encoder))
             else:
-                print(f"Server:{message}")
+                print(message)
         except:
-            print("We are having trouble reading data from server .....try re-establishing connection with server")
+            print("We are having trouble reading data from server ...try re-establishing connection with server")
             client_socket.close()
             break
 
@@ -31,7 +36,7 @@ def receive():
 def send():
     while True:
         try:
-            message = input("Type Below: \n") 
+            message = input() 
             client_socket.send(message.encode(encoder))
         except Exception as e:
             print(f"Error while sending message: {e}")

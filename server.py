@@ -22,23 +22,26 @@ server_socket.listen()
 
 print(f"Server is listening on {server_ip}:{server_port}....\n")
 
-def broadcast(message):
+def broadcast(message,client_socket):
     for client in clients:
-        client.send(message.encode(encoder))
+        if client != client_socket:
+            client.send(message.encode(encoder))
 
 def handle_clients(client_socket,client_address):
     while True:
         try:
             message= client_socket.recv(bytesize).decode(encoder)
-            broadcast(message)
+            index = clients.index(client_socket)
+            nickname=nicknames[index]
+            print(f"{nickname}: {message}")
+            broadcast(f"{nickname}: {message}",client_socket)
         
         except:
             index = clients.index(client_socket)
             clients.remove(client_socket)
             client_socket.close()
-            nickname = nicknames[index]
-            nicknames.remove(nickname)
-            broadcast(f"{nickname} left ..")
+            nickname =nicknames.pop(index)
+            broadcast(f"{nickname} left ..................",None)
             break
 
 
@@ -46,8 +49,8 @@ def handle_clients(client_socket,client_address):
 def server_message():
     while True:
         if clients:
-            message = input("Type Here: ")
-            broadcast(f"Server: {message}")
+            message = input()
+            broadcast(message,None)
         else:
             time.sleep(2)
 
@@ -64,7 +67,7 @@ while True:
     nicknames.append(nickname)
     clients.append(client_socket)
 
-    broadcast(f"{nickname} joined ")
+    broadcast(f"{nickname} joined .......",None)
     client_socket.send(f"You are now connected to server ({server_ip})\n".encode(encoder))
 
     thread = threading.Thread(target=handle_clients,args=(client_socket,client_address))
