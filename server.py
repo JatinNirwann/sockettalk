@@ -9,6 +9,9 @@ server_port = 9090
 encoder = "ascii"
 bytesize = 1024
 
+clients = []
+
+
 server_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 server_socket.bind((server_ip,server_port))
 

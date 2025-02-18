@@ -5,7 +5,7 @@ import threading
 #declaring some constants
 
 encoder = "ascii"
-bytesize = 1024 * 5
+bytesize = 1024
 
 server_ip = input("Enter the IP of server you wish to connect to : ")
 server_port = input("Enter server port number")
