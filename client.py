@@ -33,8 +33,13 @@ def send():
             client_socket.send(message.encode(encoder))
 
 def main():
-    
+
+
+
     receive_thread = threading.Thread(target=receive)
     receive_thread.start()
     send_thread = threading.Thread(target=send)
     send_thread.start()
+
+if __name__ == "__main__":
+    main()
