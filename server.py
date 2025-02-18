@@ -21,7 +21,8 @@ print(f"Server is listening on {server_ip}:{server_port}....\n")
 
 client_socket , client_address = server_socket.accept()
 
-client_socket.send(f"You are now connected to server ({server_ip})".encode(encoder))
+client_socket.send(f"You are now connected to server ({server_ip})\n".encode(encoder))
+client_socket.send("NICKNAME".encode(encoder))
 
 
 while True:
