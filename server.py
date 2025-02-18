@@ -4,7 +4,9 @@ import threading
 
 #declaring constats
 
-server_ip = socket.gethostbyname(socket.gethostname())
+#if ypu are testing this on local macine then use same value for the variable in client script 
+server_ip = socket.gethostbyname(socket.gethostname()) 
+
 server_port = 9090
 encoder = "ascii"
 bytesize = 1024
