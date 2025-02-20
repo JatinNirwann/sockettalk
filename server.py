@@ -23,6 +23,7 @@ if ipv6:
 else:
     print("Can not find global IPV6 addr")
 
+# also you might want to allow this port in your firewall
 server_port = 9090
 encoder = "ascii"
 bytesize = 1024
@@ -36,7 +37,7 @@ server_socket.listen()
 
 print(f"Server is listening on {server_ip}:{server_port}....\n")
 
-def broadcast(message,client_socket):
+def broadcast_client(message,client_socket):
     for client in clients:
         if client != client_socket:
             client.send(message.encode(encoder))
@@ -48,14 +49,14 @@ def handle_clients(client_socket,client_address):
             index = clients.index(client_socket)
             nickname=nicknames[index]
             print(f"{nickname}: {message}")
-            broadcast(f"{nickname}: {message}",client_socket)
+            broadcast_client(f"{nickname}: {message}",client_socket)
         
         except:
             index = clients.index(client_socket)
             clients.remove(client_socket)
             client_socket.close()
             nickname =nicknames.pop(index)
-            broadcast(f"{nickname} left ..................",None)
+            broadcast_client(f"{nickname} left ..................",None)
             break
 
 
@@ -64,7 +65,7 @@ def server_message():
     while True:
         if clients:
             message = input()
-            broadcast(message,None)
+            broadcast_client(message,None)
         else:
             time.sleep(2)
 
@@ -81,7 +82,7 @@ while True:
     nicknames.append(nickname)
     clients.append(client_socket)
 
-    broadcast(f"{nickname} joined .......",None)
+    broadcast_client(f"{nickname} joined .......",None)
     client_socket.send(f"You are now connected to server ({server_ip})\n".encode(encoder))
 
     thread = threading.Thread(target=handle_clients,args=(client_socket,client_address))
