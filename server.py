@@ -13,7 +13,7 @@ def get_global_ipv6():
     for addr in addresses:
         ip = addr[4][0]
         if not ip.startswith("fe80") and not ip.startswith("::1") and not ip.startswith("fd"):
-            return ip  # found a global ipv6 address
+            return ip  # found global ipv6 address
     return None
 
 # the for loop in above block discards the ipv6 address which start with "fe80","::1","fd" because these adresses can not be accessed globally 
@@ -22,7 +22,6 @@ if ipv6:
     server_ip = ipv6
 else:
     print("Can not find global IPV6 addr")
-
 
 server_port = 9090
 encoder = "ascii"
