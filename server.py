@@ -3,10 +3,26 @@ import socket
 import threading
 import time
 
-#declaring constats
 
-#if ypu are testing this on local macine then use same value for the variable in client script 
-server_ip = socket.gethostbyname(socket.gethostname()) 
+# server_ip = socket.gethostbyname(socket.gethostname()) #
+
+def get_global_ipv6():
+    hostname = socket.gethostname()
+    addresses = socket.getaddrinfo(hostname, None, socket.AF_INET6)
+
+    for addr in addresses:
+        ip = addr[4][0]
+        if not ip.startswith("fe80") and not ip.startswith("::1") and not ip.startswith("fd"):
+            return ip  # found a global ipv6 address
+    return None
+
+# the for loop in above block discards the ipv6 address which start with "fe80","::1","fd" because these adresses can not be accessed globally 
+ipv6 = get_global_ipv6()
+if ipv6:
+    server_ip = ipv6
+else:
+    print("Can not find global IPV6 addr")
+
 
 server_port = 9090
 encoder = "ascii"
@@ -15,9 +31,8 @@ bytesize = 1024
 clients = []
 nicknames =[]
 
-server_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-server_socket.bind((server_ip,server_port))
-
+server_socket = socket.socket(socket.AF_INET6,socket.SOCK_STREAM)
+server_socket.bind((server_ip, server_port))
 server_socket.listen()
 
 print(f"Server is listening on {server_ip}:{server_port}....\n")
