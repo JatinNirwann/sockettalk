@@ -1,4 +1,4 @@
-# Chat Server & Client
+# Server & Client Chat
 
 A simple multi-client chat application where clients can send messages to each other through a central server. The server handles multiple clients and ensures messages are broadcasted to all connected users, excluding the sender.
 
@@ -21,36 +21,19 @@ A simple multi-client chat application where clients can send messages to each o
 4. The server can also send messages to all clients.
 5. When a client disconnects, the server notifies all remaining clients.
 
-## Windows Firewall Rules
-To allow communication between the server and clients, the following Windows Firewall rules need to be added:
+## Firewall Rules
+To allow external connections to the server, the following Windows Firewall rules were added:
+- **Inbound Rule:** Allows TCP traffic on the specified port (e.g., 9090) for incoming connections.
+- **Outbound Rule:** Allows TCP traffic on the specified port to enable responses to connected clients.
+- **ICMPv6 (Echo Request):** Enabled to allow IPv6 ping requests.
+- **Scope:** Configured to allow connections from any remote IP for broader access.
 
-1. **Allow Incoming Connections for the Server**
-   - Open Windows Defender Firewall with Advanced Security.
-   - Create a new **Inbound Rule**.
-   - Select **Port** and click **Next**.
-   - Choose **TCP** and enter the server port (e.g., `5000`).
-   - Allow the connection and apply it to **Private** and **Public** networks.
-   - Name the rule (e.g., `Chat Server Inbound`), then save.
-
-2. **Allow Outgoing Connections for the Client**
-   - Open Windows Defender Firewall with Advanced Security.
-   - Create a new **Outbound Rule**.
-   - Select **Port** and click **Next**.
-   - Choose **TCP** and enter the client connection port (e.g., `5000`).
-   - Allow the connection and apply it to **Private** and **Public** networks.
-   - Name the rule (e.g., `Chat Client Outbound`), then save.
-
-3. **Allow the Python Executable**
-   - In Windows Defender Firewall, create a new **Inbound Rule**.
-   - Choose **Program** and select the Python executable (`python.exe`).
-   - Allow the connection and apply it to **Private** and **Public** networks.
-   - Name the rule (e.g., `Allow Python`), then save.
-
-These rules ensure that the server can receive connections and clients can send messages without being blocked by the firewall.
+For now, I am using IPv6 because I am locked behind CG-NAT by my ISP. I might update this to use IPv4 later.
 
 ## Notes
 - Ensure all clients connect to the correct server IP and port.
 - The server must be running before clients can connect.
 - Use `Ctrl+C` to stop the server.
 
+Happy chatting! 🚀
 
