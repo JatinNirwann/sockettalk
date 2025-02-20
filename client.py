@@ -10,7 +10,7 @@ bytesize = 1024
 
 #static server ip and ports , only uncomment these when you know what you doing
 
-server_ip="2401:4900:1f30:439e:c8c7:996d:8218:3392"
+server_ip="2401:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx"
 server_port = 9090
 
 # server_ip = input("Enter the IP of server you wish to connect to : ")
