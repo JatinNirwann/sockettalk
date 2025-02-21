@@ -1,9 +1,9 @@
-#to install this run "pip install pystun3"
+# to install this run "pip install pystun3"
 
 import stun
 
 stun_servers = [
-    "stun.l.google.com", 
+    "stun.l.google.com",
     "stun1.l.google.com",
     "stun2.l.google.com",
     "stun3.l.google.com",
@@ -11,7 +11,7 @@ stun_servers = [
     "stun.ekiga.net",
     "stun.ideasip.com",
     "stun.sipgate.net",
-    "stun.voipstunt.com"
+    "stun.voipstunt.com",
 ]
 
 for server in stun_servers:
